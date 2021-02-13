@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	netUrl "net/url"
 	"time"
 )
 
@@ -17,7 +18,13 @@ type ResponseWrapper struct {
 }
 
 func Get(url string, timeout int) ResponseWrapper {
-	req, err := http.NewRequest("GET", url, nil)
+	u, err := netUrl.Parse(url)
+	if err != nil {
+		return createRequestError(err)
+	}
+	q := u.Query()
+	u.RawQuery = q.Encode()
+	req, err := http.NewRequest("GET", u.String(), nil)
 	if err != nil {
 		return createRequestError(err)
 	}
