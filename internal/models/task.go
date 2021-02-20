@@ -59,7 +59,6 @@ type Task struct {
 	Remark           string               `json:"remark" xorm:"varchar(100) notnull default ''"` // 备注
 	Status           Status               `json:"status" xorm:"tinyint notnull index default 0"` // 状态 1:正常 0:停止
 	Created          time.Time            `json:"created" xorm:"datetime notnull created"`       // 创建时间
-	Deleted          time.Time            `json:"deleted" xorm:"datetime deleted"`               // 删除时间
 	BaseModel        `json:"-" xorm:"-"`
 	Hosts            []TaskHostDetail `json:"hosts" xorm:"-"`
 	NextRunTime      time.Time        `json:"next_run_time" xorm:"-"`
